@@ -34,14 +34,14 @@ internal class AITest
                     break;
                 case '3':
                     Console.Clear();
-                    var statements = new double[2];
+                    var statements = new decimal[2];
                     if (statements == null) throw new ArgumentNullException(nameof(statements));
                     
                     Console.Write("Введите истинность первого выражения (0 или 1): ");
-                    statements[0] = Convert.ToDouble(Console.ReadLine());
+                    statements[0] = Convert.ToDecimal(Console.ReadLine());
                     
                     Console.Write("Введите истинность второго выражения (0 или 1): ");
-                    statements[1] = Convert.ToDouble(Console.ReadLine());
+                    statements[1] = Convert.ToDecimal(Console.ReadLine());
                     
                     Console.WriteLine("\nИдёт процесс получения результатов...");
                     WriteResults(network.TestManually(statements));
@@ -63,7 +63,7 @@ internal class AITest
         }
     }
 
-    private static void WriteResults(double[,] results)
+    private static void WriteResults(decimal[,] results)
     {
         Console.WriteLine();
         Console.WriteLine("Результаты: \n");
@@ -77,7 +77,7 @@ internal class AITest
         Console.WriteLine();
     }
 
-    private static void WriteError(List<double> errors)
+    private static void WriteError(List<decimal> errors)
     {
         Console.WriteLine();
         Console.WriteLine("Журнал обучения: \n");

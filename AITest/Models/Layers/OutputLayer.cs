@@ -12,9 +12,9 @@ public class OutputLayer(int numberOfNeurons, int numberOfPreviousNeurons, Neuro
                 network.Output[i] = Neurons[i].Output;
     }
 
-    public override double[] BackwardPass(double[] errors)
+    public override decimal[] BackwardPass(decimal[] errors)
     {
-        var gradientSum = new double[NumberOfPreviousNeurons];
+        var gradientSum = new decimal[NumberOfPreviousNeurons];
 
         for (var j = 0; j < gradientSum.Length; ++j)
         {

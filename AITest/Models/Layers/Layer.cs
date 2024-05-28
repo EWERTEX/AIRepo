@@ -15,7 +15,7 @@ public abstract class Layer
 
         for (var i = 0; i < numberOfNeurons; ++i)
         {
-            var temporaryWeights = new double[numberOfPreviousNeurons];
+            var temporaryWeights = new decimal[numberOfPreviousNeurons];
             for (var j = 0; j < numberOfPreviousNeurons; ++j)
                 temporaryWeights[j] = weights[i, j];
             Neurons[i] = new Neuron(null, temporaryWeights, type);
@@ -24,11 +24,11 @@ public abstract class Layer
 
     protected readonly int NumberOfNeurons;
     protected readonly int NumberOfPreviousNeurons;
-    protected const double LearningRate = 0.01d;
+    protected const decimal LearningRate = (decimal)0.01;
 
     protected Neuron[] Neurons { get; set; }
 
-    public double[] Data
+    public decimal[] Data
     {
         set
         {
@@ -37,9 +37,9 @@ public abstract class Layer
         }
     }
 
-    public double[,] WeightInitialize(MemoryMode memoryMode, string type)
+    public decimal[,] WeightInitialize(MemoryMode memoryMode, string type)
     {
-        var weights = new double[NumberOfNeurons, NumberOfPreviousNeurons];
+        var weights = new decimal[NumberOfNeurons, NumberOfPreviousNeurons];
         var memoryDocument = new XmlDocument();
         memoryDocument.Load($"{type}Memory.xml");
         var memoryElement = memoryDocument.DocumentElement;
@@ -49,7 +49,7 @@ public abstract class Layer
             case MemoryMode.Get:
                 for (var l = 0; l < weights.GetLength(0); ++l)
                 for (var k = 0; k < weights.GetLength(1); ++k)
-                    weights[l, k] = double
+                    weights[l, k] = decimal
                         .Parse(
                             memoryElement?.ChildNodes.Item(k + weights.GetLength(1) * l)?.InnerText.Replace(',', '.') ??
                             string.Empty,
@@ -72,5 +72,5 @@ public abstract class Layer
     }
 
     public abstract void Recognize(NeuralNetwork? network, Layer? nextLayer);
-    public abstract double[]? BackwardPass(double[] gradientsSums);
+    public abstract decimal[]? BackwardPass(decimal[] gradientsSums);
 }

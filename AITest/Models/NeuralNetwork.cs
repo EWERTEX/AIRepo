@@ -12,7 +12,7 @@ public class NeuralNetwork
     private const int NumberOfInputNeurons = 2;
     private const int NumberOfHiddenNeurons = 4;
     private const int NumberOfOutputNeurons = 1;
-    public readonly double[] Output = new double[NumberOfOutputNeurons];
+    public readonly decimal[] Output = new decimal[NumberOfOutputNeurons];
 
     private void PassDirect()
     {
@@ -20,26 +20,26 @@ public class NeuralNetwork
         _outputLayer.Recognize(this, null);
     }
     
-    private double GetMSE(IEnumerable<double> errors)
+    private decimal GetMSE(IEnumerable<decimal> errors)
     {
-        var sum = errors.Sum(t => Pow(t, 2));
+        var sum = (decimal)errors.Sum(t => Pow((double)t, 2));
 
-        return 0.5d * sum;
+        return (decimal)0.5 * sum;
     }
 
-    private double GetCost(IReadOnlyCollection<double> MSEs)
+    private decimal GetCost(IReadOnlyCollection<decimal> MSEs)
     {
         var sum = MSEs.Sum();
 
         return sum / MSEs.Count;
     }
 
-    public List<double> Train()
+    public List<decimal> Train()
     {
-        List<double> outErrors = [];
-        const double threshold = 0.001d;
-        var temporaryMSEs = new double[4];
-        double temporaryCost;
+        List<decimal> outErrors = [];
+        const decimal threshold = (decimal)0.001;
+        var temporaryMSEs = new decimal[_inputLayer.TrainingSet.Length];
+        decimal temporaryCost;
 
         do
         {
@@ -48,7 +48,7 @@ public class NeuralNetwork
                 _hiddenLayer.Data = _inputLayer.TrainingSet[i].Item1;
                 PassDirect();
 
-                var errors = new double[NumberOfOutputNeurons];
+                var errors = new decimal[NumberOfOutputNeurons];
                 for (var x = 0; x < errors.Length; ++x)
                     errors[x] = _inputLayer.TrainingSet[i].Item2[x] - Output[x];
                 temporaryMSEs[i] = GetMSE(errors);
@@ -57,6 +57,7 @@ public class NeuralNetwork
             }
 
             temporaryCost = GetCost(temporaryMSEs);
+            //Console.WriteLine(temporaryCost); //для проверки сходимости в консоли убрать "//". По завершению проверок вернуть "//"
             outErrors.Add(temporaryCost);
         } while (temporaryCost > threshold);
 
@@ -66,9 +67,9 @@ public class NeuralNetwork
         return outErrors;
     }
 
-    public double[,] Test()
+    public decimal[,] Test()
     {
-        var result = new double[_inputLayer.TrainingSet.Length, NumberOfOutputNeurons];
+        var result = new decimal[_inputLayer.TrainingSet.Length, NumberOfOutputNeurons];
 
         for (var i = 0; i < _inputLayer.TrainingSet.Length; ++i)
         {
@@ -81,9 +82,9 @@ public class NeuralNetwork
         return result;
     }
 
-    public double[,] TestManually(double[] input)
+    public decimal[,] TestManually(decimal[] input)
     {
-        var result = new double[1, NumberOfOutputNeurons];
+        var result = new decimal[1, NumberOfOutputNeurons];
         _hiddenLayer.Data = input;
         PassDirect();
         for (var j = 0; j < Output.Length; ++j)
