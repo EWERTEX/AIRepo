@@ -12,3 +12,4 @@ C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\refint\AITest.dll
 C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.pdb
 C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.genruntimeconfig.cache
 C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\ref\AITest.dll
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.sourcelink.json

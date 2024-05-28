@@ -7,9 +7,12 @@ namespace AITest.Models;
 public class NeuralNetwork
 {
     private readonly InputLayer _inputLayer = new();
-    private HiddenLayer _hiddenLayer = new(4, 2, NeuronType.Hidden, nameof(_hiddenLayer));
-    private OutputLayer _outputLayer = new(2, 4, NeuronType.Output, nameof(_outputLayer));
-    public readonly double[] Output = new double[2];
+    private HiddenLayer _hiddenLayer = new(NumberOfHiddenNeurons, NumberOfInputNeurons, NeuronType.Hidden, nameof(_hiddenLayer));
+    private OutputLayer _outputLayer = new(NumberOfOutputNeurons, NumberOfHiddenNeurons, NeuronType.Output, nameof(_outputLayer));
+    private const int NumberOfInputNeurons = 2;
+    private const int NumberOfHiddenNeurons = 4;
+    private const int NumberOfOutputNeurons = 1;
+    public readonly double[] Output = new double[NumberOfOutputNeurons];
 
     private void PassDirect()
     {
@@ -45,7 +48,7 @@ public class NeuralNetwork
                 _hiddenLayer.Data = _inputLayer.TrainingSet[i].Item1;
                 PassDirect();
 
-                var errors = new double[_inputLayer.TrainingSet[i].Item2.Length];
+                var errors = new double[NumberOfOutputNeurons];
                 for (var x = 0; x < errors.Length; ++x)
                     errors[x] = _inputLayer.TrainingSet[i].Item2[x] - Output[x];
                 temporaryMSEs[i] = GetMSE(errors);
@@ -65,7 +68,7 @@ public class NeuralNetwork
 
     public double[,] Test()
     {
-        var result = new double[4, 2];
+        var result = new double[_inputLayer.TrainingSet.Length, NumberOfOutputNeurons];
 
         for (var i = 0; i < _inputLayer.TrainingSet.Length; ++i)
         {
@@ -80,7 +83,7 @@ public class NeuralNetwork
 
     public double[,] TestManually(double[] input)
     {
-        var result = new double[1, 2];
+        var result = new double[1, NumberOfOutputNeurons];
         _hiddenLayer.Data = input;
         PassDirect();
         for (var j = 0; j < Output.Length; ++j)
