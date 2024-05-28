@@ -1,0 +1,14 @@
+C:\Users\fgfgf\RiderProjects\AITest\AITest\bin\Debug\net8.0\AITest.exe
+C:\Users\fgfgf\RiderProjects\AITest\AITest\bin\Debug\net8.0\AITest.deps.json
+C:\Users\fgfgf\RiderProjects\AITest\AITest\bin\Debug\net8.0\AITest.runtimeconfig.json
+C:\Users\fgfgf\RiderProjects\AITest\AITest\bin\Debug\net8.0\AITest.dll
+C:\Users\fgfgf\RiderProjects\AITest\AITest\bin\Debug\net8.0\AITest.pdb
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.AssemblyInfoInputs.cache
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.AssemblyInfo.cs
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.csproj.CoreCompileInputs.cache
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.dll
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\refint\AITest.dll
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.pdb
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\AITest.genruntimeconfig.cache
+C:\Users\fgfgf\RiderProjects\AITest\AITest\obj\Debug\net8.0\ref\AITest.dll
