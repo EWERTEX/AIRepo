@@ -10,14 +10,14 @@ public class NeuralNetwork
     private HiddenLayer _hiddenLayer = new(NumberOfHiddenNeurons, NumberOfInputNeurons, NeuronType.Hidden, nameof(_hiddenLayer));
     private OutputLayer _outputLayer = new(NumberOfOutputNeurons, NumberOfHiddenNeurons, NeuronType.Output, nameof(_outputLayer));
     private const int NumberOfInputNeurons = 2;
-    private const int NumberOfHiddenNeurons = 4;
+    private const int NumberOfHiddenNeurons = 6;
     private const int NumberOfOutputNeurons = 1;
     public readonly decimal[] Output = new decimal[NumberOfOutputNeurons];
 
     private void PassDirect()
     {
-        _hiddenLayer.Recognize(null, _outputLayer);
-        _outputLayer.Recognize(this, null);
+        _hiddenLayer.Recognize(_outputLayer);
+        _outputLayer.Recognize(null,this);
     }
     
     private decimal GetMSE(IEnumerable<decimal> errors)

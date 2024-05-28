@@ -5,13 +5,14 @@ namespace AITest.Models.Layers;
 public class HiddenLayer(int numberOfNeurons, int numberOfPreviousNeurons, NeuronType type, string typeString)
     : Layer(numberOfNeurons, numberOfPreviousNeurons, type, typeString)
 {
-    public override void Recognize(NeuralNetwork? network, Layer? nextLayer)
+    public override void Recognize(Layer? nextLayer = null, NeuralNetwork? network = null)
     {
         var hiddenOut = new decimal[Neurons.Length];
+        
         for (var i = 0; i < Neurons.Length; ++i)
             hiddenOut[i] = Neurons[i].Output;
-        if (nextLayer != null) 
-            nextLayer.Data = hiddenOut;
+        
+        if (nextLayer != null) nextLayer.Data = hiddenOut;
     }
 
     public override decimal[]? BackwardPass(decimal[] gradientsSums)

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Xml;
+using System.Xml.Linq;
 using AITest.Models.Enums;
 
 namespace AITest.Models.Layers;
@@ -24,9 +25,10 @@ public abstract class Layer
 
     protected readonly int NumberOfNeurons;
     protected readonly int NumberOfPreviousNeurons;
-    protected const decimal LearningRate = (decimal)0.01;
-
+    protected const decimal LearningRate = (decimal)1;
     protected Neuron[] Neurons { get; set; }
+
+    private int NumberOfLinks => NumberOfNeurons * NumberOfPreviousNeurons;
 
     public decimal[] Data
     {
@@ -39,10 +41,45 @@ public abstract class Layer
 
     public decimal[,] WeightInitialize(MemoryMode memoryMode, string type)
     {
+        var memoryName = $"{type}Memory.xml";
+        
         var weights = new decimal[NumberOfNeurons, NumberOfPreviousNeurons];
         var memoryDocument = new XmlDocument();
-        memoryDocument.Load($"{type}Memory.xml");
+
+        try
+        {
+            memoryDocument.Load(memoryName);
+        }
+        catch
+        {
+            var document = new XDocument();
+            var documentWeights = new XElement("weights");
+            
+            for(var i = 0; i < NumberOfLinks; i++)
+                documentWeights.Add(new XElement("weight", 0));
+            
+            document.Add(documentWeights);
+            document.Save(memoryName);
+            memoryDocument.Load(memoryName);
+        }
+        
         var memoryElement = memoryDocument.DocumentElement;
+
+        if (memoryElement.ChildNodes.Count > NumberOfLinks)
+        {
+            memoryElement.RemoveAll();
+            memoryDocument.Save(memoryName);
+        }
+
+        while (memoryElement.ChildNodes.Count < NumberOfLinks)
+        {
+            var weightElement = memoryDocument.CreateElement("weight");
+            var weightText = memoryDocument.CreateTextNode("0");
+            
+            weightElement.AppendChild(weightText);
+            memoryElement.AppendChild(weightElement);
+            memoryDocument.Save(memoryName);
+        }
 
         switch (memoryMode)
         {
@@ -71,6 +108,6 @@ public abstract class Layer
         return weights;
     }
 
-    public abstract void Recognize(NeuralNetwork? network, Layer? nextLayer);
+    public abstract void Recognize(Layer? nextLayer = null, NeuralNetwork? network = null);
     public abstract decimal[]? BackwardPass(decimal[] gradientsSums);
 }

@@ -5,7 +5,7 @@ namespace AITest.Models.Layers;
 public class OutputLayer(int numberOfNeurons, int numberOfPreviousNeurons, NeuronType type, string typeString)
     : Layer(numberOfNeurons, numberOfPreviousNeurons, type, typeString)
 {
-    public override void Recognize(NeuralNetwork? network, Layer? nextLayer)
+    public override void Recognize(Layer? nextLayer = null, NeuralNetwork? network = null)
     {
         for (var i = 0; i < Neurons.Length; ++i)
             if (network != null)

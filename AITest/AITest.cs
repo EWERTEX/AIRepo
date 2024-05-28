@@ -80,6 +80,7 @@ internal class AITest
     private static void WriteError(List<decimal> errors)
     {
         Console.WriteLine();
+        Console.WriteLine("Процесс обучения окончен \n");
         Console.WriteLine("Журнал обучения: \n");
         foreach (var error in errors)
         {
